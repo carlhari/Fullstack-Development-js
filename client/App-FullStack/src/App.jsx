@@ -4,15 +4,17 @@ import { useEffect, useState } from 'react'
 function App() {
   const [BackendData, setBackendData] = useState([])
 
-  useEffect(()=>{
-    fetch('/')
-    .then(res = res.txt())
-    .then(data => setBackendData(data))
-  },[])
+  const getData = ()=>{
+    fetch('/api').then(res=>{
+      console.log(res)
+      res.text()
+    }).then(data=>setBackendData(data))
+  }
 
   return (
     <>
-      <div>{BackendData}</div>
+      <button onClick={getData}>GET DATA</button>
+      {BackendData}
     </>
   )
 }
