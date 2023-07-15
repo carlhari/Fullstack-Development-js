@@ -60,7 +60,8 @@ function Register(props) {
               name="Rpassword" 
               placeholder='Password Here'
               value={Password} 
-              onChange={e=>setPassword(e.target.value)} 
+              onChange={e=>setPassword(e.target.value)}
+              minLength={8} 
               required
             />
 
@@ -69,7 +70,8 @@ function Register(props) {
               name="Rrepassword" 
               placeholder='Retype your Password Here'
               value={RePassword}
-              onChange={e=>setRePassword(e.target.value)} 
+              onChange={e=>setRePassword(e.target.value)}
+              minLength={8} 
               required
             />
            

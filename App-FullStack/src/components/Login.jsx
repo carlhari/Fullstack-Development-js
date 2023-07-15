@@ -1,4 +1,4 @@
-import React, { useState, useRef} from 'react';
+import React, { useState } from 'react';
 
 function Login(props) {
   const [Lusername, setLusername] = useState('');
@@ -8,14 +8,14 @@ function Login(props) {
 
   const handleRequest = (e) => {
     e.preventDefault();
-    fetch('/api/request', {
+    fetch('/api/request/login', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
       body: JSON.stringify({
-        Lusername,
-        Lpassword,
+        username: Lusername,
+        password: Lpassword,
       }),
     })
       .then((response) => response.json())
@@ -23,8 +23,11 @@ function Login(props) {
         setResponse(data.message);
         setLusername('');
         setLpassword('');
+        sessionStorage.setItem('current', data.currentUser)
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error)
+      });
   };
   
 

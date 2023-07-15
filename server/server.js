@@ -17,14 +17,6 @@ connection.connect((err) => {
 app.use(express.json());
 app.use(cors());
 
-app.get('/api', (req, res) => {
-  res.send('hello');
-});
-
-app.post('/api/request', (req, res) => {
-  const { Lusername, Lpassword } = req.body;
-  res.json({ message: 'Submitted' });
-});
 
 app.post('/api/request/register', (req, res) => {
   const { Email, Username, Password } = req.body;
@@ -42,5 +34,25 @@ app.post('/api/request/register', (req, res) => {
     }
   });
 });
+
+app.post('/api/request/login', (req, res) => {
+  const { username, password } = req.body;
+
+  const sql = 'SELECT * FROM users WHERE username = ? AND password = ?';
+  connection.query(sql, [username, password], (err, results) => {
+    if (err) {
+      console.error('Error querying the database');
+      res.status(500).json({ message: 'Error occurred' });
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json({ message: 'Login successfully', currentUser: username });
+    } else {
+      res.json({ message: 'Invalid username or password' });
+    }
+  });
+});
+
 
 app.listen(3000, () => console.log('Listening on port 3000'));
