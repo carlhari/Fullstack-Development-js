@@ -12,11 +12,6 @@ function App() {
   const handleShow= ()=>{
     setShowApp(!showApp)
   }
-
-  const getData = ()=>{
-    fetch('/api').then(res=>res.text()).then(data=>setBackendData(data))
-  }
-
   return (
     <>  
     <div className="App">
